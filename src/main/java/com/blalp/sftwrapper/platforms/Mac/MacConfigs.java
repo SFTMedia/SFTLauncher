@@ -31,12 +31,12 @@ public class MacConfigs extends GenericConfig {
 
     @Override
     public String getFileMultiMCBinary() {
-        return getPathMultiMC()+File.separatorChar+"MultiMC.app";
+        return getPathMultiMC()+'/'+"MultiMC.app";
     }
 
     @Override
     public String getPathMultiMCExtract(){
-        return getPathRoot()+File.separatorChar+"MultiMC";
+        return getPathRoot()+'/'+"MultiMC";
     }
     
 }

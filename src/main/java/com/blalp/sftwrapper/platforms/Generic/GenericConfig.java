@@ -16,12 +16,12 @@ import oshi.SystemInfo;
 public abstract class GenericConfig implements IPath {
     @Override
     public String getPathRoot() {
-        return System.getProperty("user.home")+File.separatorChar+".SFTLauncher";
+        return System.getProperty("user.home")+'/'+".SFTLauncher";
     }
 
     @Override
     public String getPathMultiMC(){
-        return getPathRoot()+File.separatorChar+"MultiMC";
+        return getPathRoot()+'/'+"MultiMC";
     }
 
     public static IPath getRevelventPath(){
@@ -53,6 +53,6 @@ public abstract class GenericConfig implements IPath {
 
     @Override
     public String getPathInstanceCache() {
-        return getPathRoot()+File.separatorChar+"instanceCache";
+        return getPathRoot()+'/'+"instanceCache";
     }
 }

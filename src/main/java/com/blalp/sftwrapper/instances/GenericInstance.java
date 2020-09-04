@@ -64,10 +64,10 @@ public abstract class GenericInstance implements Runnable {
         return new JoinableThread(thread);
     }
     public void run() {
-        if (!new File(Config.path.getPathMultiMC()+File.separatorChar+"instances"+File.separatorChar+getBackEndInstanceName()).exists()){
-            String folder = Config.path.getPathInstanceCache()+File.separatorChar+getBackEndInstanceName();
+        if (!new File(Config.path.getPathMultiMC()+'/'+"instances"+'/'+getBackEndInstanceName()).exists()){
+            String folder = Config.path.getPathInstanceCache()+'/'+getBackEndInstanceName();
             new File(folder).mkdirs();
-            Download download = new Download(getURL(),folder+File.separatorChar+getBackEndInstanceName()+".zip");
+            Download download = new Download(getURL(),folder+'/'+getBackEndInstanceName()+".zip");
             download.start().join();
             try {
                 new JoinableProcess(Runtime.getRuntime().exec(Config.path.getFileMultiMCBinary()+" -I "+getLatestZIP())).join();
@@ -85,7 +85,7 @@ public abstract class GenericInstance implements Runnable {
     }
 	public String getLatestZIP() {
         File latest=null;
-        for (File file : new File(Config.path.getPathInstanceCache()+File.separatorChar+getBackEndInstanceName()).listFiles()) {
+        for (File file : new File(Config.path.getPathInstanceCache()+'/'+getBackEndInstanceName()).listFiles()) {
             if (latest==null||file.lastModified()>latest.lastModified()) {
                 latest=file;
             }
@@ -93,19 +93,19 @@ public abstract class GenericInstance implements Runnable {
 		return latest.getAbsolutePath();
 	}
 	public boolean isInstalled() {
-		return new File(Config.path.getPathMultiMC()+File.separatorChar+"instances"+File.separatorChar+getBackEndInstanceName()).exists();
+		return new File(Config.path.getPathMultiMC()+'/'+"instances"+'/'+getBackEndInstanceName()).exists();
     }
     public abstract String getPathRelativeMinecraftDir(); //Sometimes this will be .minecraft and sometimes just minecraft.
     public void moveFromAssets(String file) {
         try {
-            Files.copy(getClass().getResourceAsStream("/assets/"+getBackEndInstanceName()+File.separatorChar+file),new File(Config.path.getPathMultiMC()+File.separatorChar+"instances"+File.separatorChar+getBackEndInstanceName()+File.separatorChar+getPathRelativeMinecraftDir()+File.separatorChar+file).toPath(),StandardCopyOption.REPLACE_EXISTING); } 
+            Files.copy(getClass().getResourceAsStream("/assets/"+getBackEndInstanceName()+'/'+file),new File(Config.path.getPathMultiMC()+'/'+"instances"+'/'+getBackEndInstanceName()+'/'+getPathRelativeMinecraftDir()+'/'+file).toPath(),StandardCopyOption.REPLACE_EXISTING); } 
         catch (IOException e){
             e.printStackTrace();
         }
     }
     public abstract int[] getVersion();// {MAJOR,MINOR,PATCH}
     public void writeFiles() throws IOException {
-        String basedir = Config.path.getPathMultiMC()+File.separatorChar+"instances"+File.separatorChar+getBackEndInstanceName()+File.separatorChar;
+        String basedir = Config.path.getPathMultiMC()+'/'+"instances"+'/'+getBackEndInstanceName()+'/';
         PrintWriter printWriter = new PrintWriter(new FileWriter(basedir+"instance.cfg",true));
         if(jvmArgs!=null){
             printWriter.write("OverrideJavaArgs=true\n");
