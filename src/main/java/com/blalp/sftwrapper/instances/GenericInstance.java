@@ -98,7 +98,7 @@ public abstract class GenericInstance implements Runnable {
     public abstract String getPathRelativeMinecraftDir(); //Sometimes this will be .minecraft and sometimes just minecraft.
     public void moveFromAssets(String file) {
         try {
-            Files.copy(getClass().getResourceAsStream("/assets/"+getBackEndInstanceName()+File.separatorChar+file),new File(Config.path.getPathMultiMC()+File.separatorChar+"instances"+File.separatorChar+getBackEndInstanceName()+File.separatorChar+getPathRelativeMinecraftDir()+File.separatorChar+file).toPath(),StandardCopyOption.REPLACE_EXISTING); } 
+            Files.copy(getClass().getResourceAsStream("/assets/"+getBackEndInstanceName()+"/"+file),new File(Config.path.getPathMultiMC()+File.separatorChar+"instances"+File.separatorChar+getBackEndInstanceName()+File.separatorChar+getPathRelativeMinecraftDir()+File.separatorChar+file).toPath(),StandardCopyOption.REPLACE_EXISTING); } 
         catch (IOException e){
             e.printStackTrace();
         }
