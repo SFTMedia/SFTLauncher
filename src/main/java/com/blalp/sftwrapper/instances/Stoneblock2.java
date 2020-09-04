@@ -1,5 +1,15 @@
 package com.blalp.sftwrapper.instances;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.CopyOption;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+import java.util.concurrent.ConcurrentHashMap;
+
+import com.blalp.sftwrapper.util.Config;
+
 public class Stoneblock2 extends GenericInstance {
     public static Stoneblock2 instance = new Stoneblock2();
 
@@ -15,5 +25,17 @@ public class Stoneblock2 extends GenericInstance {
     @Override
     public String getInstanceName() {
         return "Stoneblock 2";
+    }
+
+    @Override
+    public String getPathRelativeMinecraftDir() {
+        return "minecraft";
+    }
+
+    @Override
+    public void install() {
+        super.install();
+        moveFromAssets("options.txt");
+        moveFromAssets("servers.dat");
     }
 }

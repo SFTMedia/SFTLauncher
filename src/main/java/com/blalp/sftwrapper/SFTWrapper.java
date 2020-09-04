@@ -34,17 +34,15 @@ public class SFTWrapper {
         // Add configuration options
         Configure configure = new Configure();
         // Show the window
-        window.show();
+        //window.show();
         // Do the stuff
         for (GenericInstance instance : configure.getChecked()) {
             instance.install();
         }
         // Now install all the instances
         for (GenericInstance instance : configure.getChecked()) {
-            try {
-                Runtime.getRuntime().exec(Config.path.getFileMultiMCBinary()+" -I "+instance.getLatestZIP());
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (instance.isInstalled()) {
+                instance.install();
             }
         }
     }

@@ -1,5 +1,7 @@
 package com.blalp.sftwrapper.platforms.Windows;
 
+import java.io.File;
+
 import com.blalp.sftwrapper.interfaces.IPath;
 import com.blalp.sftwrapper.platforms.Generic.GenericConfig;
 
@@ -10,7 +12,7 @@ public class WindowsConfigs extends GenericConfig {
 
     @Override
     public String getURLMultiMC() {
-        return "https://github.com/MultiMC/MultiMC5/releases/latest/download/mmc-stable-win32.tar.gz";
+        return "https://github.com/MultiMC/MultiMC5/releases/latest/download/mmc-stable-win32.zip";
     }
 
     @Override
@@ -20,8 +22,12 @@ public class WindowsConfigs extends GenericConfig {
 
     @Override
     public String getFileMultiMCBinary() {
-        // TODO Auto-generated method stub
-        return null;
+        return getPathMultiMC()+File.separatorChar+"MultiMC.exe";
+    }
+
+    @Override
+    public String getPathMultiMCExtract(){
+        return getPathRoot();
     }
     
 }

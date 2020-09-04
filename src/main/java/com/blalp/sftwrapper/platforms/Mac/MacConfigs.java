@@ -1,5 +1,7 @@
 package com.blalp.sftwrapper.platforms.Mac;
 
+import java.io.File;
+
 import com.blalp.sftwrapper.interfaces.IPath;
 import com.blalp.sftwrapper.platforms.Generic.GenericConfig;
 import com.blalp.sftwrapper.util.UserErrorExepction;
@@ -30,8 +32,12 @@ public class MacConfigs extends GenericConfig {
 
     @Override
     public String getFileMultiMCBinary() {
-        // TODO Auto-generated method stub
-        return null;
+        return getPathMultiMC()+File.separatorChar+"MultiMC.app";
+    }
+
+    @Override
+    public String getPathMultiMCExtract(){
+        return getPathRoot()+File.separatorChar+"MultiMC";
     }
     
 }

@@ -1,6 +1,9 @@
 package com.blalp.sftwrapper.instances;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 
 import com.blalp.sftwrapper.util.Config;
 import com.blalp.sftwrapper.util.Download;
@@ -47,9 +50,16 @@ public abstract class GenericInstance {
     }
     public abstract String getURL();
     public void install() {
-        String folder = Config.path.getPathInstanceCache()+File.separatorChar+getBackEndInstanceName();
-        new File(folder).mkdirs();
-        new Download(getURL(),folder+File.separatorChar+getBackEndInstanceName()+".zip");
+        if (!new File(Config.path.getPathMultiMC()+File.separatorChar+"instances"+File.separatorChar+getBackEndInstanceName()).exists()){
+            String folder = Config.path.getPathInstanceCache()+File.separatorChar+getBackEndInstanceName();
+            new File(folder).mkdirs();
+            new Download(getURL(),folder+File.separatorChar+getBackEndInstanceName()+".zip");
+            try {
+                Runtime.getRuntime().exec(Config.path.getFileMultiMCBinary()+" -I "+getLatestZIP());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
     public abstract String getInstanceName();
     public String getBackEndInstanceName(){
@@ -64,4 +74,15 @@ public abstract class GenericInstance {
         }
 		return latest.getAbsolutePath();
 	}
+	public boolean isInstalled() {
+		return false;
+    }
+    public abstract String getPathRelativeMinecraftDir(); //Sometimes this will be .minecraft and sometimes just minecraft.
+    public void moveFromAssets(String file) {
+        try {
+            Files.copy(getClass().getResourceAsStream("/assets/"+getBackEndInstanceName()+File.separatorChar+file),new File(Config.path.getPathMultiMC()+File.separatorChar+"instances"+File.separatorChar+getBackEndInstanceName()+File.separatorChar+getPathRelativeMinecraftDir()+File.separatorChar+file).toPath(),StandardCopyOption.REPLACE_EXISTING); } 
+        catch (IOException e){
+            e.printStackTrace();
+        }
+    }
 }

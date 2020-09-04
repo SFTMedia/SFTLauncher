@@ -17,5 +17,17 @@ public class MCEternal extends GenericInstance {
     public String getInstanceName() {
         return "MC Eternal";
     }
+
+    @Override
+    public String getPathRelativeMinecraftDir() {
+        return "minecraft";
+    }
+
+    @Override
+    public void install() {
+        super.install();
+        moveFromAssets("options.txt");
+        moveFromAssets("servers.dat");
+    }
     
 }

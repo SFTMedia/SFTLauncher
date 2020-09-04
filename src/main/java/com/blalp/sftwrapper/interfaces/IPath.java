@@ -1,8 +1,5 @@
 package com.blalp.sftwrapper.interfaces;
 
-import java.nio.file.Path;
-import java.util.HashMap;
-
 /**
  * IPath
  */
@@ -14,4 +11,5 @@ public interface IPath {
     public String getPathMultiMC(); // MUST end in MultiMC
     public void mkdirs();
 	public String getMultiMCArchiveFormat();
+	public String getPathMultiMCExtract();
 }

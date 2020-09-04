@@ -37,5 +37,9 @@ public class LinuxConfig extends GenericConfig {
         return "/bin/sh "+getPathMultiMC()+File.separatorChar+"MultiMC";
     }
 
+    @Override
+    public String getPathMultiMCExtract(){
+        return getPathRoot();
+    }
     
 }
