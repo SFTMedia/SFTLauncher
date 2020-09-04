@@ -70,7 +70,7 @@ public abstract class GenericInstance implements Runnable {
             Download download = new Download(getURL(),folder+File.separatorChar+getBackEndInstanceName()+".zip");
             download.start().join();
             try {
-                new JoinableProcess(Runtime.getRuntime().exec(Config.path.getFileMultiMCBinary()+" -I "+getLatestZIP().replace('\\', File.separatorChar))).join();
+                new JoinableProcess(Runtime.getRuntime().exec(Config.path.getFileMultiMCBinary()+" -I "+getLatestZIP().replace('\\', '/'))).join();
                 writeFiles();
             } catch (IOException e) {
                 e.printStackTrace();
