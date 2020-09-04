@@ -30,7 +30,7 @@ public class WindowsConfigs extends GenericConfig {
     }
     @Override
     public String getPathRoot() {
-        return System.getProperty("user.home")+File.separatorChar+"AppData"+File.pathSeparatorChar+"Roaming"+File.pathSeparatorChar+".SFTLauncher";
+        return System.getProperty("user.home")+File.separatorChar+"AppData"+File.separatorChar+"Roaming"+File.separatorChar+".SFTLauncher";
     }
     
 }
