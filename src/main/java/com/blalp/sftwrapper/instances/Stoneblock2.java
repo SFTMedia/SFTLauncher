@@ -1,14 +1,7 @@
 package com.blalp.sftwrapper.instances;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.file.CopyOption;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
-import java.util.concurrent.ConcurrentHashMap;
-
-import com.blalp.sftwrapper.util.Config;
+import com.blalp.sftwrapper.interfaces.IJoinable;
+import com.blalp.sftwrapper.util.JoinableFake;
 
 public class Stoneblock2 extends GenericInstance {
     public static Stoneblock2 instance = new Stoneblock2();
@@ -33,9 +26,14 @@ public class Stoneblock2 extends GenericInstance {
     }
 
     @Override
-    public void install() {
-        super.install();
+    public void run() {
+        super.run();
         moveFromAssets("options.txt");
         moveFromAssets("servers.dat");
+    }
+
+    @Override
+    public int[] getVersion() {
+        return new int[]{0,0,0};
     }
 }

@@ -1,5 +1,8 @@
 package com.blalp.sftwrapper.instances;
 
+import com.blalp.sftwrapper.interfaces.IJoinable;
+import com.blalp.sftwrapper.util.JoinableFake;
+
 public class MCEternal extends GenericInstance {
     public static MCEternal instance = new MCEternal();
 
@@ -24,10 +27,15 @@ public class MCEternal extends GenericInstance {
     }
 
     @Override
-    public void install() {
-        super.install();
+    public void run() {
+        super.run();
         moveFromAssets("options.txt");
         moveFromAssets("servers.dat");
+    }
+
+    @Override
+    public int[] getVersion() {
+        return new int[]{0,0,0};
     }
     
 }

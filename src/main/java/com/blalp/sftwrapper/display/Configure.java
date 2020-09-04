@@ -1,7 +1,5 @@
 package com.blalp.sftwrapper.display;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -12,16 +10,11 @@ import javax.swing.JPanel;
 import com.blalp.sftwrapper.instances.GenericInstance;
 import com.blalp.sftwrapper.instances.MCEternal;
 import com.blalp.sftwrapper.instances.Stoneblock2;
-import com.blalp.sftwrapper.util.Config;
-import com.blalp.sftwrapper.util.MultiMC;
 
 public class Configure {
     public HashMap<GenericInstance,JCheckBox> instances = new HashMap<>();
     public Configure() {
         createItems();
-        if(!MultiMC.isInstalled()){
-            MultiMC.install();
-        }
     }
     private void createItems() {
         JPanel panel = new JPanel();

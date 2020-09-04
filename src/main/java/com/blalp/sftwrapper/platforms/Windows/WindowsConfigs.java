@@ -2,7 +2,6 @@ package com.blalp.sftwrapper.platforms.Windows;
 
 import java.io.File;
 
-import com.blalp.sftwrapper.interfaces.IPath;
 import com.blalp.sftwrapper.platforms.Generic.GenericConfig;
 
 /**

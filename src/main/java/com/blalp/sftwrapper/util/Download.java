@@ -9,6 +9,10 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import com.blalp.sftwrapper.interfaces.IJoinable;
 
 public class Download implements Runnable {
     protected String url;
@@ -22,7 +26,11 @@ public class Download implements Runnable {
     public Download(String url, File file) {
         this.file = file;
         this.url = url;
-        new Thread(this).start();
+    }
+
+    public IJoinable start() {
+        Thread thread = new Thread(this);
+        thread.start();
         try {
             URL url2 = new URI(url).toURL();
             URLConnection connection = url2.openConnection();
@@ -35,6 +43,7 @@ public class Download implements Runnable {
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
+        return new JoinableThread(thread);
     }
 
     public void run() {

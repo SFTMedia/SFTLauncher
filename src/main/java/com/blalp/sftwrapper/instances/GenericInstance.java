@@ -5,13 +5,17 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
+import com.blalp.sftwrapper.interfaces.IJoinable;
 import com.blalp.sftwrapper.util.Config;
 import com.blalp.sftwrapper.util.Download;
+import com.blalp.sftwrapper.util.JoinableFake;
+import com.blalp.sftwrapper.util.JoinableProcess;
+import com.blalp.sftwrapper.util.JoinableThread;
 import com.blalp.sftwrapper.util.UserErrorExepction;
 
 import oshi.SystemInfo;
 
-public abstract class GenericInstance {
+public abstract class GenericInstance implements Runnable {
     protected long reserveForSystem = 1250000000;
     protected long systemRAM;
     protected long usableRAM;
@@ -49,17 +53,24 @@ public abstract class GenericInstance {
         return getMinimumRAM()*2;
     }
     public abstract String getURL();
-    public void install() {
+    public IJoinable install() {
+        Thread thread = new Thread(this);
+        thread.start();
+        return new JoinableThread(thread);
+    }
+    public void run() {
         if (!new File(Config.path.getPathMultiMC()+File.separatorChar+"instances"+File.separatorChar+getBackEndInstanceName()).exists()){
             String folder = Config.path.getPathInstanceCache()+File.separatorChar+getBackEndInstanceName();
             new File(folder).mkdirs();
-            new Download(getURL(),folder+File.separatorChar+getBackEndInstanceName()+".zip");
+            Download download = new Download(getURL(),folder+File.separatorChar+getBackEndInstanceName()+".zip");
+            download.start().join();
             try {
-                Runtime.getRuntime().exec(Config.path.getFileMultiMCBinary()+" -I "+getLatestZIP());
+                new JoinableProcess(Runtime.getRuntime().exec(Config.path.getFileMultiMCBinary()+" -I "+getLatestZIP())).join();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+
     }
     public abstract String getInstanceName();
     public String getBackEndInstanceName(){
@@ -85,4 +96,5 @@ public abstract class GenericInstance {
             e.printStackTrace();
         }
     }
+    public abstract int[] getVersion();// {MAJOR,MINOR,PATCH}
 }

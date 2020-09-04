@@ -1,7 +1,6 @@
 package com.blalp.sftwrapper.platforms.Generic;
 
 import java.io.File;
-import java.util.HashMap;
 
 import com.blalp.sftwrapper.interfaces.IPath;
 import com.blalp.sftwrapper.platforms.Linux.LinuxConfig;
@@ -12,7 +11,7 @@ import com.blalp.sftwrapper.platforms.Linux.LinuxConfig;
 public abstract class GenericConfig implements IPath {
     @Override
     public String getPathRoot() {
-        return System.getProperty("user.home")+File.separatorChar+".SFTInstaller";
+        return System.getProperty("user.home")+File.separatorChar+".SFTLauncher";
     }
 
     @Override

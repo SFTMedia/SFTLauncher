@@ -1,7 +1,6 @@
 package com.blalp.sftwrapper.platforms.Linux;
 
 import java.io.File;
-import java.nio.file.Path;
 
 import com.blalp.sftwrapper.platforms.Generic.GenericConfig;
 import com.blalp.sftwrapper.util.UserErrorExepction;

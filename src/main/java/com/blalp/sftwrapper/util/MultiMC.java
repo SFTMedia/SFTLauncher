@@ -2,17 +2,19 @@ package com.blalp.sftwrapper.util;
 
 import java.io.File;
 
+import com.blalp.sftwrapper.interfaces.IJoinable;
+
 /**
  * MultiMC
  */
 public class MultiMC {
 
     public static boolean isInstalled() {
-        return new File(Config.path.getPathRoot(), "MultiMC").exists();
+        return new File(Config.path.getPathRoot(), "MultiMC").listFiles().length!=0;
     }
 
-    public static void install() {
+    public static IJoinable install() {
         // The MultiMC Archive has a MultiMC folder already in it.
-        new ExtractedDownload(Config.path.getURLMultiMC(), Config.path.getPathRoot() +File.separatorChar+ "MultiMC."+Config.path.getMultiMCArchiveFormat(),Config.path.getPathMultiMCExtract());
+        return new ExtractedDownload(Config.path.getURLMultiMC(), Config.path.getPathRoot() +File.separatorChar+ "MultiMC."+Config.path.getMultiMCArchiveFormat(),Config.path.getPathMultiMCExtract()).start();
     }
 }
