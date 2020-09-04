@@ -28,5 +28,9 @@ public class WindowsConfigs extends GenericConfig {
     public String getPathMultiMCExtract(){
         return getPathRoot();
     }
+    @Override
+    public String getPathRoot() {
+        return System.getProperty("user.home")+File.separatorChar+"AppData"+File.pathSeparatorChar+"Roaming"+File.pathSeparatorChar+".SFTLauncher";
+    }
     
 }
