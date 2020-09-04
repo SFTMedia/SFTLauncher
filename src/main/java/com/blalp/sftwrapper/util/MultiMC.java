@@ -7,15 +7,12 @@ import java.io.File;
  */
 public class MultiMC {
 
-    public boolean isInstalled() {
-        return new File(Config.path.getFilePath(), "MultiMC").exists();
+    public static boolean isInstalled() {
+        return new File(Config.path.getPathRoot(), "MultiMC").exists();
     }
 
-    public void install() {
-        new Download(Config.path.getMultiMCURL(), Config.path.getFilePath() + "multimc.archive");
-    }
-
-    public void extract() {
-        // CompressInput
+    public static void install() {
+        // The MultiMC Archive has a MultiMC folder already in it.
+        new ExtractedDownload(Config.path.getURLMultiMC(), Config.path.getPathRoot() +File.separatorChar+ "MultiMC."+Config.path.getMultiMCArchiveFormat(),Config.path.getPathMultiMC()+"../");
     }
 }

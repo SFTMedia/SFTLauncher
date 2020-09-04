@@ -1,23 +1,36 @@
 package com.blalp.sftwrapper.platforms.Generic;
 
 import java.io.File;
+import java.util.HashMap;
 
 import com.blalp.sftwrapper.interfaces.IPath;
+import com.blalp.sftwrapper.platforms.Linux.LinuxConfig;
 
 /**
  * GenericConfig
  */
 public abstract class GenericConfig implements IPath {
-
     @Override
-    public String getFilePath() {
-        return System.getProperty("user.home")+File.pathSeparatorChar+"SFTInstaller";
+    public String getPathRoot() {
+        return System.getProperty("user.home")+File.separatorChar+".SFTInstaller";
     }
 
     @Override
-    public String getMultiMCPath() {
-        return getFilePath()+File.pathSeparatorChar+"MultiMC";
+    public String getPathMultiMC(){
+        return getPathRoot()+File.separatorChar+"MultiMC";
     }
 
-    
+    public static IPath getRevelventPath(){
+        return new LinuxConfig();
+    }
+    public void mkdirs() {
+        new File(getPathInstanceCache()).mkdirs();
+        new File(getPathMultiMC()).mkdirs();
+        new File(getPathRoot()).mkdirs();
+    }
+
+    @Override
+    public String getPathInstanceCache() {
+        return getPathRoot()+File.separatorChar+"instanceCache";
+    }
 }

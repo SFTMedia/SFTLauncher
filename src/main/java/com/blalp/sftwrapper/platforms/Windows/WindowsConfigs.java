@@ -9,9 +9,19 @@ import com.blalp.sftwrapper.platforms.Generic.GenericConfig;
 public class WindowsConfigs extends GenericConfig {
 
     @Override
-    public String getMultiMCURL() {
+    public String getURLMultiMC() {
         return "https://github.com/MultiMC/MultiMC5/releases/latest/download/mmc-stable-win32.tar.gz";
     }
 
+    @Override
+    public String getMultiMCArchiveFormat() {
+        return "zip";
+    }
+
+    @Override
+    public String getFileMultiMCBinary() {
+        // TODO Auto-generated method stub
+        return null;
+    }
     
 }

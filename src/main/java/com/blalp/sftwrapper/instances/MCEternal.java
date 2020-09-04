@@ -10,7 +10,12 @@ public class MCEternal extends GenericInstance {
 
     @Override
     public String getURL() {
-        return "https://www.curseforge.com/minecraft/modpacks/minecraft-eternal/download/3018921/file";
+        return "https://media.forgecdn.net/files/3018/921/MC+Eternal-1.3.7.1.zip";
+    }
+
+    @Override
+    public String getInstanceName() {
+        return "MC Eternal";
     }
     
 }

@@ -1,5 +1,7 @@
 package com.blalp.sftwrapper.instances;
 
+import java.io.File;
+
 import com.blalp.sftwrapper.util.Config;
 import com.blalp.sftwrapper.util.Download;
 import com.blalp.sftwrapper.util.UserErrorExepction;
@@ -45,6 +47,21 @@ public abstract class GenericInstance {
     }
     public abstract String getURL();
     public void install() {
-        new Download(getURL(),Config.path.getFilePath());
+        String folder = Config.path.getPathInstanceCache()+File.separatorChar+getBackEndInstanceName();
+        new File(folder).mkdirs();
+        new Download(getURL(),folder+File.separatorChar+getBackEndInstanceName()+".zip");
     }
+    public abstract String getInstanceName();
+    public String getBackEndInstanceName(){
+        return getInstanceName().replaceAll("[ +]", "");
+    }
+	public String getLatestZIP() {
+        File latest=null;
+        for (File file : new File(Config.path.getPathInstanceCache()+File.separatorChar+getBackEndInstanceName()).listFiles()) {
+            if (latest==null||file.lastModified()>latest.lastModified()) {
+                latest=file;
+            }
+        }
+		return latest.getAbsolutePath();
+	}
 }

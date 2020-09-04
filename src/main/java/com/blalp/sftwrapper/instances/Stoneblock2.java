@@ -5,12 +5,15 @@ public class Stoneblock2 extends GenericInstance {
 
     @Override
     public long getMinimumRAM() {
-        return 6300000000l;
+        return 4000000000l;
     }
 
     @Override
     public String getURL() {
-        return "https://www.curseforge.com/minecraft/modpacks/ftb-presents-stoneblock-2/download/2818169/file";
+        return "https://media.forgecdn.net/files/2818/169/FTBPresentsStoneblock2-1.16.1-1.12.2.zip";
     }
-    
+    @Override
+    public String getInstanceName() {
+        return "Stoneblock 2";
+    }
 }

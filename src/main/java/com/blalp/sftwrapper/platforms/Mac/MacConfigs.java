@@ -10,7 +10,7 @@ import com.blalp.sftwrapper.util.UserErrorExepction;
 public class MacConfigs extends GenericConfig {
 
     @Override
-    public String getMultiMCURL() {
+    public String getURLMultiMC() {
         if(System.getProperty ("os.arch")=="amd64") {
             return "https://github.com/MultiMC/MultiMC5/releases/latest/download/mmc-stable-osx64.tar.gz";
         } else {
@@ -23,5 +23,15 @@ public class MacConfigs extends GenericConfig {
         }
     }
 
+    @Override
+    public String getMultiMCArchiveFormat() {
+        return "tar.gz";
+    }
+
+    @Override
+    public String getFileMultiMCBinary() {
+        // TODO Auto-generated method stub
+        return null;
+    }
     
 }
