@@ -1,11 +1,9 @@
 package com.blalp.sftwrapper;
 
-import java.util.ArrayList;
 
 import com.blalp.sftwrapper.display.Configure;
 import com.blalp.sftwrapper.display.MainWindow;
 import com.blalp.sftwrapper.instances.GenericInstance;
-import com.blalp.sftwrapper.interfaces.IJoinable;
 import com.blalp.sftwrapper.platforms.Generic.GenericConfig;
 import com.blalp.sftwrapper.util.Config;
 import com.blalp.sftwrapper.util.MultiMC;
@@ -29,32 +27,28 @@ public class SFTWrapper {
          * 
          */
         // Setup the main window
-        /*MainWindow window = */new MainWindow();
+        MainWindow window = new MainWindow();
         // get the relevent path (this method still needs implementing)
         Config.path = GenericConfig.getRevelventPath();
         // Make the directories
         Config.path.mkdirs();
         // Add configuration options
         Configure configure = new Configure();
-        // Show the window
-        //window.show();
-        //Install MultiMC
-        if(!MultiMC.isInstalled()){
+        // Install MultiMC
+        if (!MultiMC.isInstalled()) {
             MultiMC.install().join();
         }
         // Do the stuff
-        boolean first = true;
-        ArrayList<IJoinable> joinables = new ArrayList<>();
         for (GenericInstance instance : configure.getChecked()) {
-            if(!instance.isInstalled())
-                joinables.add(instance.install());
-            if (first) {
-                joinables.get(0).join();
-                first = false;
+            if(!instance.isInstalled()) {
+                window.show();
+                // Only can install one at a time
+                instance.install().join();
+                System.exit(-1);
             }
         }
-        for(IJoinable joinable:joinables){
-            joinable.join();
-        }
+        window.show();
+        MultiMC.start();
+        System.exit(0);
     }
 }

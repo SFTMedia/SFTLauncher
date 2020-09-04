@@ -1,8 +1,5 @@
 package com.blalp.sftwrapper.instances;
 
-import com.blalp.sftwrapper.interfaces.IJoinable;
-import com.blalp.sftwrapper.util.JoinableFake;
-
 public class Stoneblock2 extends GenericInstance {
     public static Stoneblock2 instance = new Stoneblock2();
 

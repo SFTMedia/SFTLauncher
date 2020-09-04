@@ -16,7 +16,7 @@ public class MainWindow {
     public MainWindow() {
         instance = this;
         frame.setIconImage(new ImageIcon("assets/logo.png").getImage());
-        JLabel header = new JLabel("<html><h1 style='text-align=center;'>Super Fun Time Launcher</h1></html>");
+        JLabel header = new JLabel("<html><h1 style='text-align=center;'>Super Fun Time Launcher</h1><h2>Notices</h2><p>Sorry this is a BETA build. While it should work, many sensible features are missing.</p><h2>Features</h2><ul><li>Auto-RAM setting</li><li>Auto import of SFT's server version</li></ul><h2>Instructions</h2><ul><li>Launch SFTLauncher</li><li>MultiMC will prompt you for setup, choose your langauge and what-not.</li><li>Import MC Eternal</li><li>Close MultiMC</li><li>Launch SFTLauncher</li><li>Import Stoneblock 2</li><li>Close MultiMC</li><li>Start SFTLauncher</li><li>add your minecraft account via the top right icon.</li><li>Click on either one to play!</li></ul></html>");
         panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
         panel.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel.add(header);

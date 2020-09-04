@@ -13,7 +13,7 @@ public class DownloadBar extends ProgressBar implements Runnable {
     public DownloadBar(long size, File path) {
         this.size=size;
         this.path=path;
-        MainWindow.instance.getPanel().add(this.progressBar);
+        //MainWindow.instance.getPanel().add(this.progressBar);
     } 
     public void run () {
         while (true) {

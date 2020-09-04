@@ -9,8 +9,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 import com.blalp.sftwrapper.interfaces.IJoinable;
 

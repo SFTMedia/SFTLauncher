@@ -1,8 +1,5 @@
 package com.blalp.sftwrapper.instances;
 
-import com.blalp.sftwrapper.interfaces.IJoinable;
-import com.blalp.sftwrapper.util.JoinableFake;
-
 public class MCEternal extends GenericInstance {
     public static MCEternal instance = new MCEternal();
 

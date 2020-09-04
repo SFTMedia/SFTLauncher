@@ -1,14 +1,16 @@
 package com.blalp.sftwrapper.instances;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
 import com.blalp.sftwrapper.interfaces.IJoinable;
 import com.blalp.sftwrapper.util.Config;
 import com.blalp.sftwrapper.util.Download;
-import com.blalp.sftwrapper.util.JoinableFake;
 import com.blalp.sftwrapper.util.JoinableProcess;
 import com.blalp.sftwrapper.util.JoinableThread;
 import com.blalp.sftwrapper.util.UserErrorExepction;
@@ -20,6 +22,7 @@ public abstract class GenericInstance implements Runnable {
     protected long systemRAM;
     protected long usableRAM;
     protected long idealRAM;
+    protected String jvmArgs = null;
     public GenericInstance() {
         SystemInfo systemInfo = new SystemInfo();
         systemRAM = systemInfo.getHardware().getMemory().getTotal();
@@ -38,8 +41,10 @@ public abstract class GenericInstance implements Runnable {
             }
             return -1; // This shouldn't happen
         }
-        if (usableRAM<=idealRAM)
+        if (usableRAM<=idealRAM) {
+            jvmArgs = "-XX:+UseG1GC -Dsun.rmi.dgc.server.gcInterval=2147483646 -XX:+UnlockExperimentalVMOptions -XX:G1NewSizePercent=20 -XX:MaxGCPauseMillis=50 -XX:G1HeapRegionSize=32M";
             return usableRAM;// YIKES LOW RAM
+        }
         return idealRAM;
         
     }
@@ -66,9 +71,11 @@ public abstract class GenericInstance implements Runnable {
             download.start().join();
             try {
                 new JoinableProcess(Runtime.getRuntime().exec(Config.path.getFileMultiMCBinary()+" -I "+getLatestZIP())).join();
+                writeFiles();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
         }
 
     }
@@ -86,7 +93,7 @@ public abstract class GenericInstance implements Runnable {
 		return latest.getAbsolutePath();
 	}
 	public boolean isInstalled() {
-		return false;
+		return new File(Config.path.getPathMultiMC()+File.separatorChar+"instances"+File.separatorChar+getBackEndInstanceName()).exists();
     }
     public abstract String getPathRelativeMinecraftDir(); //Sometimes this will be .minecraft and sometimes just minecraft.
     public void moveFromAssets(String file) {
@@ -97,4 +104,19 @@ public abstract class GenericInstance implements Runnable {
         }
     }
     public abstract int[] getVersion();// {MAJOR,MINOR,PATCH}
+    public void writeFiles() throws IOException {
+        String basedir = Config.path.getPathMultiMC()+File.separatorChar+"instances"+File.separatorChar+getBackEndInstanceName()+File.separatorChar;
+        PrintWriter printWriter = new PrintWriter(new FileWriter(basedir+"instance.cfg",true));
+        if(jvmArgs!=null){
+            printWriter.write("OverrideJavaArgs=true\n");
+            printWriter.write("JvmArgs="+jvmArgs+"\n");
+        }
+        printWriter.write("MaxMemAlloc="+getOptimumRAM()/1000000+"\n");
+        printWriter.write("MinMemAlloc="+getOptimumRAM()/1000000+"\n");
+        printWriter.write("OverrideMemory=true"+"\n");
+        printWriter.write("VersionMajor="+getVersion()[0]+"\n");
+        printWriter.write("VersionMinor="+getVersion()[1]+"\n");
+        printWriter.write("VersionPath="+getVersion()[2]+"\n");
+        printWriter.close();
+    }
 }

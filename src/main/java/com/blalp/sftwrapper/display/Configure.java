@@ -26,7 +26,7 @@ public class Configure {
         for (JCheckBox checkBox : instances.values()) {
             panel.add(checkBox);
         }
-        MainWindow.instance.getPanel().add(panel);
+        //MainWindow.instance.getPanel().add(panel);
     }
     public Set<GenericInstance> getChecked() {
         return instances.keySet();
