@@ -1,9 +1,12 @@
 package com.blalp.sftwrapper;
 
+import com.blalp.sftwrapper.display.MainWindow;
+
 public class SFTWrapper {
     public static void main(String[] args) {
         /**
          * MultiMC Download thread start
+         * 
          *  Check to see if its installed
          *  If not install it
          * Check if this is the first start
@@ -26,5 +29,7 @@ public class SFTWrapper {
          *  Delete the old instance
          *  
          */
+        MainWindow window = new MainWindow();
+        window.show();
     }
 }
