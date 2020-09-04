@@ -22,6 +22,7 @@
 				<artifactId>maven-jar-plugin</artifactId>
 				<version>2.4</version>
 				<configuration>
+					<finalName>SFTLauncher</finalName>
 					<archive>
 						<manifest>
 							<mainClass>com.blalp.sftwrapper.SFTWrapper</mainClass>
@@ -43,6 +44,29 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>com.google.code.maven-replacer-plugin</groupId>
+					<artifactId>maven-replacer-plugin</artifactId>
+					<version>1.4.0</version>
+					<executions>                
+						<execution>
+							<phase>process-sources</phase>
+							<goals>
+								<goal>replace</goal>
+							</goals>
+						</execution>
+					</executions>
+					<configuration>
+						<file>src/main/java/com/blalp/sftwrapper/SFTWrapper.java</file>
+						<outputFile>src/main/java/com/blalp/sftwrapper/SFTWrapper.java</outputFile>
+						<replacements>
+							<replacement>
+								<token>@VERSION@</token>
+								<value>${project.version}</value>
+							</replacement>
+						</replacements>                        
+					</configuration>
+			  </plugin>
 		</plugins>
 	</build>
 

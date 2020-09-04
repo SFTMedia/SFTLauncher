@@ -27,7 +27,7 @@ public class SFTWrapper {
          * 
          */
         // Setup the main window
-        MainWindow window = new MainWindow();
+        MainWindow window = new MainWindow("0.1.2");
         // get the relevent path (this method still needs implementing)
         Config.path = GenericConfig.getRevelventPath();
         // Make the directories
