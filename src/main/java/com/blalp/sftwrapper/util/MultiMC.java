@@ -20,7 +20,7 @@ public class MultiMC implements Runnable {
     public static IJoinable install() {
         // The MultiMC Archive has a MultiMC folder already in it.
         return new ExtractedDownload(Config.path.getURLMultiMC(),
-                Config.path.getPathRoot() + '/' + "MultiMC." + Config.path.getMultiMCArchiveFormat(),
+                Config.path.getPathRoot() + File.separatorChar + "MultiMC." + Config.path.getMultiMCArchiveFormat(),
                 Config.path.getPathMultiMCExtract()).start();
     }
 

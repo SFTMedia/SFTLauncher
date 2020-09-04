@@ -22,7 +22,7 @@ public class ExtractedDownload extends Download {
         super(url, path);
         this.extractedPath = extractedPath;
         if(!extractedPath.endsWith(File.separator)) {
-            this.extractedPath+='/';
+            this.extractedPath+=File.separatorChar;
         }
     }
 

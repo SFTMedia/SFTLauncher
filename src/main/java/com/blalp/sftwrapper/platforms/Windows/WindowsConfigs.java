@@ -21,7 +21,7 @@ public class WindowsConfigs extends GenericConfig {
 
     @Override
     public String getFileMultiMCBinary() {
-        return getPathMultiMC()+'/'+"MultiMC.exe";
+        return getPathMultiMC()+File.separatorChar+"MultiMC.exe";
     }
 
     @Override
