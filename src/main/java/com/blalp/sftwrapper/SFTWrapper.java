@@ -81,7 +81,7 @@ public class SFTWrapper {
             error.pack();
             error.setVisible(true);
         }
-        MultiMC.start().join();
+        MultiMC.start();
         System.exit(0);
     }
 }

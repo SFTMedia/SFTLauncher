@@ -39,11 +39,12 @@ public class MultiMC implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        // This will fail on windows, but that's alright.
-        try {
-            Runtime.getRuntime().exec("chmod +x " + Config.path.getPathMultiMC() + File.separatorChar + "MultiMC");
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(Config.path.getMultiMCArchiveFormat().equals("tar.gz")) {
+            try {
+                Runtime.getRuntime().exec("chmod +x " + Config.path.getPathMultiMC() + File.separatorChar + "MultiMC");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         // The MultiMC Archive has a MultiMC folder already in it.
         return new JoinableFake();
