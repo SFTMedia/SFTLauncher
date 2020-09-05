@@ -75,7 +75,7 @@ public class SFTWrapper {
             JPanel panel = new JPanel();
             panel.add(new JLabel("No installable modpacks"));
             for (GenericInstance instance : configure.getOptions()) {
-                panel.add(new JLabel(instance.getInstanceName()+" requires at LEAST "+((instance.getMinimumRAM()+instance.reserveForSystem)/1000000)+" In your system to run. You have "+(new SystemInfo().getHardware().getMemory().getAvailable()/1000000)));
+                panel.add(new JLabel(instance.getInstanceName()+" requires at LEAST "+((instance.getMinimumRAM()+instance.reserveForSystem)/1000000)+" In your system to run. You have "+(new SystemInfo().getHardware().getMemory().getTotal()/1000000)));
             }
             error.add(panel);
             error.pack();
