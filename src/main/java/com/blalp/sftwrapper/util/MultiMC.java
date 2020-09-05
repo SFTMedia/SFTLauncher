@@ -6,10 +6,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 
 import com.blalp.sftwrapper.instances.GenericInstance;
 import com.blalp.sftwrapper.interfaces.IJoinable;
-import com.blalp.sftwrapper.platforms.Mac.MacConfigs;
 
 import oshi.SystemInfo;
 
@@ -59,7 +59,12 @@ public class MultiMC implements Runnable {
     public void run() {
         // Start MultiMC and wait for the notifications file to be written
         try {
-            new JoinableProcess(Runtime.getRuntime().exec(Config.path.getCommandMultiMC())).join();
+            ArrayList<String> env = new ArrayList<>();
+            for (String key:System.getenv().keySet()){
+                env.add(key+"="+System.getenv(key));
+            }
+            new JoinableProcess(Runtime.getRuntime()
+                    .exec(Config.path.getCommandMultiMC(),env.toArray(new String[]{}),new File(Config.path.getPathMultiMC()))).join();
         } catch (IOException e) {
             e.printStackTrace();
         }

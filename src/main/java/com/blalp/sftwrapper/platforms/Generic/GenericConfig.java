@@ -47,7 +47,7 @@ public abstract class GenericConfig implements IPath {
     }
     public void mkdirs() {
         new File(getPathInstanceCache()).mkdirs();
-        new File(getPathMultiMC()).mkdirs();
+        //new File(getPathMultiMC()).mkdirs(); DO NOT check this one, this should be generated from extracting the zip and is how we tell if MultiMC is installed
         new File(getPathRoot()).mkdirs();
     }
 

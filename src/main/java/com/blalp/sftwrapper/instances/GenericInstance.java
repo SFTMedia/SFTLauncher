@@ -1,10 +1,8 @@
 package com.blalp.sftwrapper.instances;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
@@ -21,7 +19,7 @@ import oshi.SystemInfo;
 public abstract class GenericInstance implements Runnable {
     public static int minIdealRAM = -1;
 	public static int maxIdealRAM = -1;
-	protected long reserveForSystem = 1250000000;
+	public long reserveForSystem = 1250000000;
     protected long systemRAM;
     protected long usableRAM;
     protected long idealRAM;

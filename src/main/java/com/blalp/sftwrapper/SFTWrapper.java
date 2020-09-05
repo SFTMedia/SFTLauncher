@@ -75,6 +75,8 @@ public class SFTWrapper {
             for (GenericInstance instance : configure.getOptions()) {
                 error.add(new JLabel(instance.getInstanceName()+" requires at LEAST "+((instance.getMinimumRAM()+instance.reserveForSystem)/1000000)+" In your system to run. You have "+(new SystemInfo().getHardware().getMemory().getAvailable()/1000000)));
             }
+            error.pack();
+            error.setVisible(true);
         }
         MultiMC.start().join();
         System.exit(0);
