@@ -4,7 +4,7 @@ Simple installer for Stoneblock 2 and MC Eternal for Super Fun Time.
 Windows, MacOS or Linux
 Stoneblock 2 - 7.5GB+ RAM
 MC Eternal - 7GB+ RAM
-## Screenshots showing installation
+## Screenshots Showing Installation
 (The installation process is the same across all platforms)
 ![Download](https://github.com/SFTMedia/SFTLauncher/raw/master/images/Github.png)
 ![Save](https://github.com/SFTMedia/SFTLauncher/raw/master/images/Save.png)
