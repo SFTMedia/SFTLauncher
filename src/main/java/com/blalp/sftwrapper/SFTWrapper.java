@@ -3,6 +3,9 @@ package com.blalp.sftwrapper;
 
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
 import com.blalp.sftwrapper.display.Configure;
 import com.blalp.sftwrapper.display.MainWindow;
 import com.blalp.sftwrapper.instances.GenericInstance;
@@ -10,6 +13,8 @@ import com.blalp.sftwrapper.interfaces.IJoinable;
 import com.blalp.sftwrapper.platforms.Generic.GenericConfig;
 import com.blalp.sftwrapper.util.Config;
 import com.blalp.sftwrapper.util.MultiMC;
+
+import oshi.SystemInfo;
 
 public class SFTWrapper {
     public static void main(String[] args) {
@@ -64,7 +69,14 @@ public class SFTWrapper {
         for (IJoinable joinable : joinables) {
             joinable.join();
         }
-        MultiMC.start();
+        if (configure.getChecked().size()==0){
+            JFrame error = new JFrame();
+            error.add(new JLabel("No installable modpacks"));
+            for (GenericInstance instance : configure.getOptions()) {
+                error.add(new JLabel(instance.getInstanceName()+" requires at LEAST "+((instance.getMinimumRAM()+instance.reserveForSystem)/1000000)+" In your system to run. You have "+(new SystemInfo().getHardware().getMemory().getAvailable()/1000000)));
+            }
+        }
+        MultiMC.start().join();
         System.exit(0);
     }
 }

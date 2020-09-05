@@ -39,4 +39,7 @@ public class Configure {
         }
         return output;
     }
+	public Set<GenericInstance> getOptions() {
+		return instances.keySet();
+	}
 }
