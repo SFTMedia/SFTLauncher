@@ -1,6 +1,11 @@
 # SFTWrapper
-Simple installer for Stoneblock 2 and MC Eternal for Super Fun Time
+Simple installer for Stoneblock 2 and MC Eternal for Super Fun Time.
+## Requriements
+Windows, MacOS or Linux
+Stoneblock 2 - 7.5GB+ RAM
+MC Eternal - 7GB+ RAM
 ## Screenshots showing installation
+(The installation process is the same across all platforms)
 ![Download](https://github.com/SFTMedia/SFTLauncher/raw/master/images/Github.png)
 ![Save](https://github.com/SFTMedia/SFTLauncher/raw/master/images/Save.png)
 ![Launch](https://github.com/SFTMedia/SFTLauncher/raw/master/images/Launch-1.png)
