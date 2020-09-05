@@ -3,7 +3,7 @@
 
 	<groupId>com.blalp</groupId>
 	<artifactId>sftwrapper</artifactId>
-	<version>0.1.5-beta</version>
+	<version>0.1.6-alpha</version>
 	<packaging>jar</packaging>
 
 	<build>
