@@ -37,6 +37,16 @@ public class SFTWrapper {
         Config.path.mkdirs();
         // Add configuration options
         Configure configure = new Configure();
+        // Get otimum ram to fill cache
+        for (GenericInstance instance : configure.getChecked()) {
+            int idealRAM = (int) (instance.getOptimumRAM() / 1000000);
+            if(GenericInstance.minIdealRAM==-1||GenericInstance.minIdealRAM>idealRAM){
+                GenericInstance.minIdealRAM= idealRAM;
+            }
+            if(GenericInstance.maxIdealRAM==-1||GenericInstance.maxIdealRAM<idealRAM){
+                GenericInstance.maxIdealRAM= idealRAM;
+            }
+        }
         // Install MultiMC
         if (!MultiMC.isInstalled()) {
             MultiMC.install().join();
@@ -47,6 +57,8 @@ public class SFTWrapper {
         for (GenericInstance instance : configure.getChecked()) {
             if(!instance.isInstalled()) {
                 joinables.add(instance.install());
+            } else {
+                instance.writeInstanceCfg();
             }
         }
         for (IJoinable joinable : joinables) {

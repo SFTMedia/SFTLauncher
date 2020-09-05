@@ -1,10 +1,6 @@
 package com.blalp.sftwrapper.instances;
 
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,25 +10,15 @@ import java.nio.file.StandardCopyOption;
 import com.blalp.sftwrapper.interfaces.IJoinable;
 import com.blalp.sftwrapper.util.Config;
 import com.blalp.sftwrapper.util.Download;
-import com.blalp.sftwrapper.util.JoinableProcess;
 import com.blalp.sftwrapper.util.JoinableThread;
 import com.blalp.sftwrapper.util.UserErrorExepction;
 
-import org.apache.commons.compress.archivers.ArchiveEntry;
-import org.apache.commons.compress.archivers.ArchiveOutputStream;
-import org.apache.commons.compress.archivers.zip.Zip64Mode;
-import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
-import org.apache.commons.compress.archivers.zip.ZipArchiveEntryPredicate;
-import org.apache.commons.compress.archivers.zip.ZipArchiveInputStream;
-import org.apache.commons.compress.archivers.zip.ZipArchiveOutputStream;
-import org.apache.commons.compress.archivers.zip.ZipFile;
-import org.apache.commons.compress.utils.IOUtils;
-
 import oshi.SystemInfo;
-import oshi.driver.unix.solaris.disk.Iostat;
 
 public abstract class GenericInstance implements Runnable {
-    protected long reserveForSystem = 1250000000;
+    public static int minIdealRAM = -1;
+	public static int maxIdealRAM = -1;
+	protected long reserveForSystem = 1250000000;
     protected long systemRAM;
     protected long usableRAM;
     protected long idealRAM;
@@ -90,7 +76,16 @@ public abstract class GenericInstance implements Runnable {
             new File(folder).mkdirs();
             Download download = new Download(getURL(), folder + File.separatorChar + getURL().replaceAll("^.*/", ""));
             download.start().join();
-            writeFiles();
+            try {
+                Files.copy(new File(getLatestZIP()).toPath(),
+                        new File(Config.path.getPathInstanceCache() + File.separatorChar + getBackEndInstanceName()
+                                + File.separatorChar + getBackEndInstanceName()+".zip").toPath(),
+                        StandardCopyOption.REPLACE_EXISTING);
+                new File(Config.path.getPathInstanceCache() + File.separatorChar + getBackEndInstanceName()
+                + File.separatorChar + getBackEndInstanceName()+".zip").setLastModified(System.currentTimeMillis()+10000l);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
             try {
                 Runtime.getRuntime()
                         .exec(Config.path.getFileMultiMCBinary() + " -I " + getLatestZIP().replace('\\', '/'));
@@ -152,40 +147,27 @@ public abstract class GenericInstance implements Runnable {
 
     public abstract int[] getVersion();// {MAJOR,MINOR,PATCH}
 
-    public void writeFiles() {
-        String data = "";
-        if(jvmArgs!=null){
-            data+="OverrideJavaArgs=true\n";
-            data+="JvmArgs="+jvmArgs+"\n";
-        }
-        data+="InstanceType="+getInstanceType()+"\n";
-        data+="name="+getInstanceName()+"\n";
-        data+="iconKey="+getIcon()+"\n";
-        data+="VersionPath="+getVersion()[2]+"\n";
-        data+="MaxMemAlloc="+getOptimumRAM()/1000000+"\n";
-        data+="MinMemAlloc="+getOptimumRAM()/1000000+"\n";
-        data+="OverrideMemory=true"+"\n";
-        data+="VersionMajor="+getVersion()[0]+"\n";
-        data+="VersionMinor="+getVersion()[1]+"\n";
-        data+="VersionPath="+getVersion()[2]+"\n";
+    public void writeInstanceCfg() {
         try {
-            ZipArchiveEntry entry = new ZipArchiveEntry("instance.cfg");
-            entry.setSize(data.getBytes("UTF-8").length);
-            ZipFile inputStream = new ZipFile(new File(getLatestZIP()));
-            ZipArchiveOutputStream zip = new ZipArchiveOutputStream(new File(Config.path.getPathInstanceCache() + File.separatorChar + getBackEndInstanceName()+File.separatorChar+getBackEndInstanceName()+".zip"));
-            zip.setUseZip64(Zip64Mode.Always);
-            inputStream.copyRawEntries(zip, new ZipArchiveEntryPredicate(){
-
-                @Override
-                public boolean test(ZipArchiveEntry zipArchiveEntry) {
-                    return true;
-                }
-                
-            });
-            zip.putArchiveEntry(entry);
-            zip.write(data.getBytes("UTF-8"));
-            zip.closeArchiveEntry();
-            zip.close();
+            String basedir = Config.path.getPathMultiMC()+File.separatorChar+"instances"+File.separatorChar+getBackEndInstanceName()+File.separatorChar;
+            if(!new File(basedir).exists()){
+                return;
+            }
+            PrintWriter printWriter = new PrintWriter(new FileWriter(basedir+"instance.cfg",false));
+            if(jvmArgs!=null){
+                printWriter.write("OverrideJavaArgs=true\n");
+                printWriter.write("JvmArgs="+jvmArgs+"\n");
+            }
+            printWriter.write("InstanceType="+getInstanceType()+"\n");
+            printWriter.write("name="+getInstanceName()+"\n");
+            printWriter.write("iconKey="+getIcon()+"\n");
+            printWriter.write("MaxMemAlloc="+getOptimumRAM()/1000000+"\n");
+            printWriter.write("MinMemAlloc="+getOptimumRAM()/1000000+"\n");
+            printWriter.write("OverrideMemory=true"+"\n");
+            printWriter.write("VersionMajor="+getVersion()[0]+"\n");
+            printWriter.write("VersionMinor="+getVersion()[1]+"\n");
+            printWriter.write("VersionPatch="+getVersion()[2]+"\n");
+            printWriter.close();
         } catch (IOException e){
             e.printStackTrace();
         }

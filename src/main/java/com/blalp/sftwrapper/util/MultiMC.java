@@ -11,7 +11,6 @@ import com.blalp.sftwrapper.instances.GenericInstance;
 import com.blalp.sftwrapper.interfaces.IJoinable;
 
 import oshi.SystemInfo;
-import oshi.software.os.OSProcess;
 
 /**
  * MultiMC
@@ -33,6 +32,8 @@ public class MultiMC implements Runnable {
                     StandardCopyOption.REPLACE_EXISTING);
             PrintWriter printWriter = new PrintWriter(new FileWriter(Config.path.getPathMultiMC() + File.separatorChar + "multimc.cfg",true));
             printWriter.write("LastHostname="+new SystemInfo().getOperatingSystem().getNetworkParams().getHostName()+"\n");
+            printWriter.write("MaxMemAlloc="+GenericInstance.minIdealRAM+"\n");
+            printWriter.write("MinMemAlloc="+GenericInstance.maxIdealRAM+"\n");
             printWriter.close();
         } catch (IOException e) {
             e.printStackTrace();

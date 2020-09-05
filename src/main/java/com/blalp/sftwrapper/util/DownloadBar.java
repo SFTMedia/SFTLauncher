@@ -2,7 +2,6 @@ package com.blalp.sftwrapper.util;
 
 import java.io.File;
 
-import com.blalp.sftwrapper.display.MainWindow;
 import com.blalp.sftwrapper.display.ProgressBar;
 
 public class DownloadBar extends ProgressBar implements Runnable {
