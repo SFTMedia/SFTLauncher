@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import com.blalp.sftwrapper.display.Configure;
 import com.blalp.sftwrapper.display.MainWindow;
@@ -71,10 +72,12 @@ public class SFTWrapper {
         }
         if (configure.getChecked().size()==0){
             JFrame error = new JFrame();
-            error.add(new JLabel("No installable modpacks"));
+            JPanel panel = new JPanel();
+            panel.add(new JLabel("No installable modpacks"));
             for (GenericInstance instance : configure.getOptions()) {
-                error.add(new JLabel(instance.getInstanceName()+" requires at LEAST "+((instance.getMinimumRAM()+instance.reserveForSystem)/1000000)+" In your system to run. You have "+(new SystemInfo().getHardware().getMemory().getAvailable()/1000000)));
+                panel.add(new JLabel(instance.getInstanceName()+" requires at LEAST "+((instance.getMinimumRAM()+instance.reserveForSystem)/1000000)+" In your system to run. You have "+(new SystemInfo().getHardware().getMemory().getAvailable()/1000000)));
             }
+            error.add(panel);
             error.pack();
             error.setVisible(true);
         }
