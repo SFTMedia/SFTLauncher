@@ -1,11 +1,14 @@
 package com.blalp.sftwrapper.instances;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 
 import com.blalp.sftwrapper.interfaces.IJoinable;
 import com.blalp.sftwrapper.util.Config;
@@ -87,8 +90,12 @@ public abstract class GenericInstance implements Runnable {
                 e1.printStackTrace();
             }
             try {
+                ArrayList<String> env = new ArrayList<>();
+                for (String key:System.getenv().keySet()){
+                    env.add(key+"="+System.getenv(key));
+                }
                 Runtime.getRuntime()
-                        .exec(Config.path.getFileMultiMCBinary() + " -I " + getLatestZIP().replace('\\', '/'));
+                        .exec(Config.path.getCommandMultiMC() + " -I " + getLatestZIP().replace('\\', '/'),env.toArray(new String[]{}),new File(Config.path.getPathMultiMC()));
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -32,7 +32,7 @@ public class LinuxConfig extends GenericConfig {
     }
 
     @Override
-    public String getFileMultiMCBinary() {
+    public String getCommandMultiMC() {
         return "/bin/sh "+getPathMultiMC()+File.separatorChar+"MultiMC";
     }
 

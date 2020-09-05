@@ -8,5 +8,5 @@ import com.blalp.sftwrapper.interfaces.IPath;
 public class Config {
 
     public static IPath path;
-    public static String version = "0.1.6-alpha";
+    public static String version = "0.1.6-beta";
 }

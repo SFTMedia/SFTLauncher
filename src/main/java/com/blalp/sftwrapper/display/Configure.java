@@ -1,6 +1,8 @@
 package com.blalp.sftwrapper.display;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 import javax.swing.JCheckBox;
@@ -28,7 +30,13 @@ public class Configure {
         }
         //MainWindow.instance.getPanel().add(panel);
     }
-    public Set<GenericInstance> getChecked() {
-        return instances.keySet();
+    public List<GenericInstance> getChecked() {
+        ArrayList<GenericInstance> output = new ArrayList<>();
+        for (GenericInstance instance : instances.keySet()) {
+            if (instances.get(instance).isSelected()){
+                output.add(instance);
+            }
+        }
+        return output;
     }
 }

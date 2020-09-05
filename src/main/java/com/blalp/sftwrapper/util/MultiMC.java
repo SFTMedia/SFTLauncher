@@ -9,6 +9,7 @@ import java.nio.file.StandardCopyOption;
 
 import com.blalp.sftwrapper.instances.GenericInstance;
 import com.blalp.sftwrapper.interfaces.IJoinable;
+import com.blalp.sftwrapper.platforms.Mac.MacConfigs;
 
 import oshi.SystemInfo;
 
@@ -18,7 +19,7 @@ import oshi.SystemInfo;
 public class MultiMC implements Runnable {
 
     public static boolean isInstalled() {
-        return new File(Config.path.getPathRoot(), "MultiMC").listFiles().length != 0;
+        return new File(Config.path.getPathMultiMC()).exists();
     }
 
     public static IJoinable install() {
@@ -38,6 +39,12 @@ public class MultiMC implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        // This will fail on windows, but that's alright.
+        try {
+            Runtime.getRuntime().exec("chmod +x " + Config.path.getPathMultiMC() + File.separatorChar + "MultiMC");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         // The MultiMC Archive has a MultiMC folder already in it.
         return new JoinableFake();
     }
@@ -52,7 +59,7 @@ public class MultiMC implements Runnable {
     public void run() {
         // Start MultiMC and wait for the notifications file to be written
         try {
-            new JoinableProcess(Runtime.getRuntime().exec(Config.path.getFileMultiMCBinary())).join();
+            new JoinableProcess(Runtime.getRuntime().exec(Config.path.getCommandMultiMC())).join();
         } catch (IOException e) {
             e.printStackTrace();
         }
