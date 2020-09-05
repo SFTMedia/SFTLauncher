@@ -1,9 +1,12 @@
 package com.blalp.sftwrapper;
 
 
+import java.util.ArrayList;
+
 import com.blalp.sftwrapper.display.Configure;
 import com.blalp.sftwrapper.display.MainWindow;
 import com.blalp.sftwrapper.instances.GenericInstance;
+import com.blalp.sftwrapper.interfaces.IJoinable;
 import com.blalp.sftwrapper.platforms.Generic.GenericConfig;
 import com.blalp.sftwrapper.util.Config;
 import com.blalp.sftwrapper.util.MultiMC;
@@ -38,16 +41,17 @@ public class SFTWrapper {
         if (!MultiMC.isInstalled()) {
             MultiMC.install().join();
         }
+        window.show();
         // Do the stuff
+        ArrayList<IJoinable> joinables = new ArrayList<>();
         for (GenericInstance instance : configure.getChecked()) {
             if(!instance.isInstalled()) {
-                window.show();
-                // Only can install one at a time
-                instance.install().join();
-                System.exit(-1);
+                joinables.add(instance.install());
             }
         }
-        window.show();
+        for (IJoinable joinable : joinables) {
+            joinable.join();
+        }
         MultiMC.start();
         System.exit(0);
     }

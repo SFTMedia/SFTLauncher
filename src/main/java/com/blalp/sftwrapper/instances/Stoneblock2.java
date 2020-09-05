@@ -33,4 +33,11 @@ public class Stoneblock2 extends GenericInstance {
     public int[] getVersion() {
         return new int[]{0,0,0};
     }
+    @Override
+    public String getIcon() {
+        return "stone";
+    }
+    public String getInstanceType(){
+        return "OneSix";
+    }
 }

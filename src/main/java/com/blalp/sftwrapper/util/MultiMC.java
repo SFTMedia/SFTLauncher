@@ -1,8 +1,13 @@
 package com.blalp.sftwrapper.util;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 
+import com.blalp.sftwrapper.instances.GenericInstance;
 import com.blalp.sftwrapper.interfaces.IJoinable;
 
 import oshi.SystemInfo;
@@ -18,10 +23,22 @@ public class MultiMC implements Runnable {
     }
 
     public static IJoinable install() {
-        // The MultiMC Archive has a MultiMC folder already in it.
-        return new ExtractedDownload(Config.path.getURLMultiMC(),
+        new ExtractedDownload(Config.path.getURLMultiMC(),
                 Config.path.getPathRoot() + File.separatorChar + "MultiMC." + Config.path.getMultiMCArchiveFormat(),
-                Config.path.getPathMultiMCExtract()).start();
+                Config.path.getPathMultiMCExtract()).start().join();
+        new File(Config.path.getPathMultiMCExtract()).mkdirs();
+        try {
+            Files.copy(MultiMC.class.getClass().getResourceAsStream("/assets/MultiMC/multimc.cfg"),
+                    new File(Config.path.getPathMultiMC() + File.separatorChar + "multimc.cfg").toPath(),
+                    StandardCopyOption.REPLACE_EXISTING);
+            PrintWriter printWriter = new PrintWriter(new FileWriter(Config.path.getPathMultiMC() + File.separatorChar + "multimc.cfg",true));
+            printWriter.write("LastHostname="+new SystemInfo().getOperatingSystem().getNetworkParams().getHostName()+"\n");
+            printWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // The MultiMC Archive has a MultiMC folder already in it.
+        return new JoinableFake();
     }
 
     public static IJoinable start() {
