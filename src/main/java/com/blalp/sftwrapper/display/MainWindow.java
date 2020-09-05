@@ -16,7 +16,7 @@ public class MainWindow {
     public MainWindow(String version) {
         instance = this;
         frame.setIconImage(new ImageIcon("assets/logo.png").getImage());
-        JLabel header = new JLabel("<html><h1 style='text-align=center;'>Super Fun Time Launcher - "+version+"</h1><h2>Notices</h2><p>Sorry this is a BETA build. While it should work, many sensible features are missing.</p><h2>Features</h2><ul><li>Auto-RAM setting</li><li>Auto import of SFT's server version</li></ul><h2>Instructions</h2><ul><li>Launch SFTLauncher</li><li>MultiMC will prompt you for setup, choose your langauge and what-not.</li><li>Import MC Eternal (MultiMC may not respond for a bit while it's thinking)</li><li>Close MultiMC</li><li>Launch SFTLauncher</li><li>Import Stoneblock 2 (MultiMC may not respond for a bit while it's thinking)</li><li>Close MultiMC</li><li>Start SFTLauncher</li><li>add your minecraft account via the top right icon.</li><li>Click on either one to play!</li></ul></html>");
+        JLabel header = new JLabel("<html><h1 style='text-align=center;'>Super Fun Time Launcher - "+version+"</h1><h2>Features</h2><ul><li>Auto-RAM setting</li><li>Auto import of SFT's server version</li></ul><h1>Instructions</h1><ul><li>Click OK when prompted for Stoneblock 2 and MC Eternal</li><li>Add your minecraft account via the top right icon.<a href='https://github.com/MultiMC/MultiMC5/wiki/Getting-Started#adding-an-account'>instructions here</a></li><li>To launch this again, just launch the jar again</li></ul></html>");
         panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
         panel.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel.add(header);
