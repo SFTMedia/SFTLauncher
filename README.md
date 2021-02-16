@@ -1,4 +1,7 @@
 # SFTWrapper
+
+This is still in ALPHA and unmaintined.
+
 Simple installer for Stoneblock 2 and MC Eternal for Super Fun Time.
 ## Requriements
 Windows, MacOS or Linux
